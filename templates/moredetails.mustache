@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+{{> header}}
+{{#graph}}
+<body class="hold-transition sidebar-mini sidebar-collapse">
+    <div class="wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="text-center">
+                                    <strong>
+                                        Overview: {{{waveText}}}
+                                    </strong>
+                                </p>
+
+                                <div class="progress-group">
+                                    Completed
+                                    <span class="float-right"><b>{{{completed}}}</b>/{{{waveTotalRooms}}}</span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-success" style="width: {{{completedPercentage}}}%"></div>
+                                    </div>
+                                </div><!-- /.progress-group -->
+
+                                <div class="progress-group">
+                                    In progress
+                                    <span class="float-right"><b>{{{inProgress}}}</b>/{{{waveTotalRooms}}}</span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar progress-bar-striped bg-warning" style="width: {{{inProgressPercentage}}}%"></div>
+                                    </div>
+                                </div><!-- /.progress-group -->
+
+                                <div class="progress-group">
+                                    To Complete
+                                    <span class="float-right"><b>{{{toComplete}}}</b>/{{{waveTotalRooms}}}</span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar progress-bar-striped bg-warning" style="width: {{{toCompletePercentage}}}%"></div>
+                                    </div>
+                                </div><!-- /.progress-group -->
+
+                                <div class="progress-group">
+                                    Scheduled
+                                    <span class="float-right"><b>{{{scheduled}}}</b>/{{{waveTotalRooms}}}</span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar progress-bar bg-info" style="width: {{{scheduledPercentage}}}%"></div>
+                                    </div>
+                                </div><!-- /.progress-group -->
+                                <div class="progress-group">
+                                    Postponed
+                                    <span class="float-right"><b>{{{postponed}}}</b>/{{{waveTotalRooms}}}</span>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar progress-bar bg-warning" style="width: {{{postponedPercentage}}}%"></div>
+                                    </div>
+                                </div><!-- /.progress-group -->
+
+                            </div><!-- /.card-body -->                  
+                        </div><!-- /.card -->
+                    </div><!-- /.column -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+
+
+            <!------------------  TABLE --------------------->
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    Details: {{{waveText}}}
+                                </h3>
+
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Room</th>
+                                            <th>Status</th>
+                                            <!-- <th>Actions</th> <!-- -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#data}}
+                                        <tr>
+                                            <td>{{{room}}}</td>
+                                            <td><h5><span class="badge badge-{{{color}}}">{{{badgeText}}}</span></h5></d>
+                                                <!-- <th>Actions</th> <!-- -->
+                                        </tr>
+                                        {{/data}}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Room</th>                                       
+                                            <th>Status</th>
+                                            <!-- <th>Actions</th> <!-- -->
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+    </div>
+    <!-- jQuery -->
+    <script src="AdminLTE/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="AdminLTE/plugins/chart.js/Chart.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="AdminLTE/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="AdminLTE/dist/js/demo.js"></script>
+
+</body>
+{{/graph}}
+{{> footer}}

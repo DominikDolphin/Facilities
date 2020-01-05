@@ -1,0 +1,48 @@
+Time : 18:34:37
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'startdate' at row 1
+Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 18:34:23
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'startdate' at row 1
+Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 18:33:07
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'startdate' at row 1
+Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 18:31:55
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'startdate' at row 1
+Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 18:30:43
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'startdate' at row 1
+Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 18:29:28
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'startdate' at row 1
+Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 18:15:17
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: 'Wave' for column 'wave' at row 1
+Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 18:14:37
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: 'Wave' for column 'wave' at row 1
+Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 16:37:11
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '*' for column 'status' at row 1
+Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 16:36:26
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'facilities.facilities' doesn't exist
+Raw SQL : truncate facilities
