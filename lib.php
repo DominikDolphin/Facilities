@@ -1,6 +1,7 @@
 <?php
 
-function debug() {
+function debug()
+{
     global $CFG;
     if ($CFG->debug) {
         ini_set("display_errors", 1);
@@ -8,7 +9,8 @@ function debug() {
     }
 }
 
-function getGoogleSheetData() {
+function getGoogleSheetData()
+{
     global $CFG, $DB;
     require 'googleapi/vendor/autoload.php';
     /**
@@ -16,15 +18,15 @@ function getGoogleSheetData() {
      * created the service account. Notice that this path must be readable by
      * this script.
      */
-//Keys
+    //Keys
     $service_account_file = $CFG->serviceAccountFile;
     /**
      * This is the long string that identifies the spreadsheet. Pick it up from
      * the spreadsheet's URL and paste it below.
      */
-//Test spreadsheet
-//$spreadsheet_id = '1cTqXm93vjGvNTn-CBU5B37HSdf09AHtOqYaZi3DeHQs';
-//Washroom Spreadsheet
+    //Test spreadsheet
+    //$spreadsheet_id = '1cTqXm93vjGvNTn-CBU5B37HSdf09AHtOqYaZi3DeHQs';
+    //Washroom Spreadsheet
     $spreadsheet_id = $CFG->spreadsheetId;
     /**
      * This is the range that you want to extract out of the spreadsheet. It uses
@@ -41,7 +43,7 @@ function getGoogleSheetData() {
     $service = new Google_Service_Sheets($client);
     $result = $service->spreadsheets_values->get($spreadsheet_id, $spreadsheet_range);
     $data = $result->getValues();
-// print_object($data);
+    // print_object($data);
     $sum = 0;
 
     $DB->query('truncate sheets');
@@ -55,25 +57,25 @@ function getGoogleSheetData() {
             'year_phase' => $value[3] //added
         ];
         // print_object($key);
-        
+
         //Added +1 because of phase
-        if (isset($value[3+1]) && trim($value[3+1]) != '') {
-            $params['startdate'] = strtotime($value[3+1]);
+        if (isset($value[3 + 1]) && trim($value[3 + 1]) != '') {
+            $params['startdate'] = strtotime($value[3 + 1]);
         } else {
             $params['startdate'] = 0;
         }
-        if (isset($value[4+1]) && trim($value[4+1]) != '') {
-            $params['enddate'] = strtotime($value[4+1]);
+        if (isset($value[4 + 1]) && trim($value[4 + 1]) != '') {
+            $params['enddate'] = strtotime($value[4 + 1]);
         } else {
             $params['enddate'] = 0;
         }
-        if (isset($value[5+1]) && trim($value[5+1]) != '') {
-            $params['status'] = $value[5+1];
+        if (isset($value[5 + 1]) && trim($value[5 + 1]) != '') {
+            $params['status'] = $value[5 + 1];
         } else {
             $params['status'] = 'Identified';
         }
-        
-//    print_object($params);
+
+        //    print_object($params);
         $DB->insert('sheets', $params);
     }
 }
@@ -83,7 +85,8 @@ function getGoogleSheetData() {
  * @global \stdClass $DB
  * @return array
  */
-function getWaves() {
+function getWaves()
+{
     global $DB;
     $countRows = "SELECT count(*) AS count FROM sheets WHERE status !=  'Cancelled' ";
     $result = $DB->query($countRows);
@@ -92,18 +95,44 @@ function getWaves() {
     //$wavesSQL = "SELECT DISTINCT wave, year_phase AS wave FROM sheets"; // Added
     $waves = $DB->query($wavesSQL);
 
-    $wavesArray = [];
-    for ($i = 0; $i < count($waves) + 1; $i++) {
-        if ($i == 0) {
-            $wavesArray[$i]['id'] = $i;
-            $wavesArray[$i]['wave'] = '';
-            $wavesArray[$i]['graph'] = loadGraph($i);
-        } else {
-            $wavesArray[$i]['id'] = $i;
-            $wavesArray[$i]['wave'] = $waves[$i - 1]['wave'];
-            $wavesArray[$i]['graph'] = loadGraph($waves[$i - 1]['wave'], $i);
+    foreach ($waves as $key => $value) {
+
+
+        $wavesArray = [];
+        for ($i = 0; $i < count($waves) + 1; $i++) {
+            if ($i == 0) {
+                $wavesArray[$i]['id'] = $i;
+                $wavesArray[$i]['wave'] = '';
+                $wavesArray[$i]['graph'] = loadGraph($i);
+            } else {
+                $wavesArray[$i]['id'] = $i;
+                $wavesArray[$i]['wave'] = $waves[$i - 1]['wave'];
+                $wavesArray[$i]['graph'] = loadGraph($waves[$i - 1]['wave'], $i);
+
+                $phaseCount = $DB->query('SELECT DISTINCT(year_phase) as phases FROM sheets WHERE wave = ' . $waves[$i - 1]['wave'] . ' ORDER BY phases DESC LIMIT 1');
+                // print_object($phaseCount);
+
+                $x = 1;
+                $finishBy = $x + $phaseCount[0]['phases'];
+                $i++;
+                $waveValue = $waves[$i - 2]['wave'];
+                while ($x < $finishBy) {
+                    $phases = $DB->query('SELECT * FROM sheets WHERE wave=' . $waveValue  . ' AND year_phase=' . $x);
+                    foreach ($phases as $key => $phase) {
+                        $wavesArray[$i]['id'] = $x;
+                        $wavesArray[$i]['wave'] = $phase['wave'] . ' Phase: ' . $x;
+                        $wavesArray[$i]['graph'] = loadGraph($phase['wave'], $x);                        
+
+                    }
+                    $i++;
+                    $x++;
+                }
+            }
         }
+
     }
+
+
 
     return $wavesArray;
 }
@@ -115,7 +144,8 @@ function getWaves() {
  * @param int $reference
  * @return array
  */
-function loadGraph($wave, $reference = 0) {
+function loadGraph($wave, $reference = 0, $phase = false)
+{
     global $DB;
 
     $count = 0;
@@ -129,14 +159,16 @@ function loadGraph($wave, $reference = 0) {
     $unknown_count = 0;
     $pending = 0;
 
-// Total number of rooms
+    // Total number of rooms
     $sql = "SELECT * FROM sheets ";
-    if ($wave != 0) {
+    if ($wave != 0 && !$phase) {
+        $sql .= "WHERE wave =  $wave";
+    } else {
         $sql .= "WHERE wave =  $wave";
     }
 
     $result = $DB->query($sql);
-//Get all data based on wave
+    //Get all data based on wave
     $tableData = [];
     $i = 0;
     if (count($result) > 0) {
@@ -145,11 +177,13 @@ function loadGraph($wave, $reference = 0) {
             $count++;
             //print_object($row);
             switch (strtolower($row['status'])) {
-                case 'to complete': $to_be_scheduled++;
+                case 'to complete':
+                    $to_be_scheduled++;
                     $color = 'primary';
                     $text = '<i class="fa fa-calendar" aria-hidden="true"></i> To be scheduled';
                     break;
-                case 'completed': $completed++; // 
+                case 'completed':
+                    $completed++; // 
                     $color = 'success';
                     if ($row['enddate'] != 0) {
                         $endDate = 'Completed on ' . date('Y-m-d', $row['enddate']);
@@ -158,7 +192,8 @@ function loadGraph($wave, $reference = 0) {
                     }
                     $text = $endDate;
                     break;
-                case 'scheduled': $scheduled++; //
+                case 'scheduled':
+                    $scheduled++; //
                     $color = 'info';
                     if ($row['startdate'] != 0) {
                         $startDate = 'Scheduled for ' . date('Y-m-d', $row['startdate']);
@@ -167,20 +202,24 @@ function loadGraph($wave, $reference = 0) {
                     }
                     $text = $startDate;
                     break;
-                case 'postponed': $postponed++; //
+                case 'postponed':
+                    $postponed++; //
                     $color = 'warning';
                     $text = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Postponed';
                     break;
-                case 'in progress': $in_progress++; //
+                case 'in progress':
+                    $in_progress++; //
                     $color = 'secondary';
                     $text = 'In progress';
                     break;
-                case 'cancelled': $cancelled++; //Wasn't there in his
+                case 'cancelled':
+                    $cancelled++; //Wasn't there in his
                     $color = 'danger';
                     $text = '<i class="fa fa-ban" aria-hidden="true"></i> Cancelled';
                     break;
 
-                default: $to_be_scheduled++; //$unknown_count
+                default:
+                    $to_be_scheduled++; //$unknown_count
                     $color = 'primary';
                     $text = '<i class="fa fa-calendar" aria-hidden="true"></i> To be scheduled';
                     break;
@@ -253,7 +292,8 @@ function loadGraph($wave, $reference = 0) {
  * Print a beautiful/readable array
  * @param object $object
  */
-function print_object($object) {
+function print_object($object)
+{
     echo "<pre>";
     print_r($object);
     echo "</pre>";

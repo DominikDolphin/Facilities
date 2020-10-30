@@ -1,3 +1,39 @@
+Time : 22:30:05
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Raw SQL : SELECT * FROM sheets WHERE wave =
+
+Time : 22:29:44
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Raw SQL : SELECT * FROM sheets WHERE wave =
+
+Time : 22:29:36
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Raw SQL : SELECT * FROM sheets WHERE wave =
+
+Time : 22:29:26
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Raw SQL : SELECT * FROM sheets WHERE wave =
+
+Time : 22:28:52
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+Raw SQL : SELECT * FROM sheets WHERE wave =
+
+Time : 22:25:15
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND year_phase=2' at line 1
+Raw SQL : SELECT * FROM sheets WHERE wave= AND year_phase=2
+
+Time : 21:20:27
+SQLSTATE[HY000] [2002] No such file or directory
+
+Time : 21:20:27
+SQLSTATE[HY000] [2002] No such file or directory
+
+Time : 21:20:26
+SQLSTATE[HY000] [2002] No such file or directory
+
+Time : 21:19:35
+SQLSTATE[HY000] [2002] No such file or directory
+
 Time : 21:07:57
 SQLSTATE[HY000]: General error: 1364 Field 'year_phase' doesn't have a default value
 Raw SQL : INSERT INTO `sheets` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 

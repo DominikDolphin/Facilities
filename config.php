@@ -4,13 +4,14 @@ unset($CFG);
 global $CFG;
 $CFG = new stdClass();
 
-$CFG->dbhost    = 'localhost';
+$CFG->dbhost    = 's1dev.ddns.net';
 $CFG->dbport    = 3306;
 $CFG->dbname    = 'classrooms';
-$CFG->dbuser    = 'dominik';
+$CFG->dbuser    = 'patrick';
 $CFG->dbpass    = 'asdasd';
 
-$CFG->wwwroot   = 'http://patrick.biz/Facilities';
+$CFG->wwwroot   = 'http://dominik.biz/Facilities';
+
 
 //Google Sheet
 $CFG->serviceAccountFile = 'keys/facilitiessheet-ceea3f5eacc3.json';
