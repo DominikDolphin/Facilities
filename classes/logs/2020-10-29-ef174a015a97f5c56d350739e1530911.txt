@@ -1,0 +1,29 @@
+Time : 21:07:57
+SQLSTATE[HY000]: General error: 1364 Field 'year_phase' doesn't have a default value
+Raw SQL : INSERT INTO `sheets` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 21:07:02
+SQLSTATE[HY000]: General error: 1364 Field 'year_phase' doesn't have a default value
+Raw SQL : INSERT INTO `sheets` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 21:04:04
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'phase' in 'field list'
+Raw SQL : INSERT INTO `sheets` (`name`,`roomnumber`,`wave`,`phase`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:phase,:startdate,:enddate,:status)
+
+Time : 20:22:59
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'phase' in 'field list'
+Raw SQL : INSERT INTO `sheets` (`name`,`roomnumber`,`wave`,`phase`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:phase,:startdate,:enddate,:status)
+
+Time : 20:12:29
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'startdate' at row 1
+Raw SQL : INSERT INTO `sheets` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 19:56:33
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'roomnumber' in 'field list'
+Raw SQL : INSERT INTO `sheets` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)

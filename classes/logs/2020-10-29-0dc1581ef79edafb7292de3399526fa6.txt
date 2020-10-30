@@ -1,0 +1,46 @@
+Time : 19:54:10
+SQLSTATE[HY000] [1049] Unknown database 'classroom'
+
+Time : 19:54:09
+SQLSTATE[HY000] [1049] Unknown database 'classroom'
+
+Time : 19:51:29
+SQLSTATE[HY000] [1049] Unknown database 'classroom'
+
+Time : 19:50:00
+SQLSTATE[HY000] [1049] Unknown database 'classroom'
+
+Time : 19:20:52
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'wave' in 'field list'
+Raw SQL : INSERT INTO `sheets` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
+
+Time : 19:17:41
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'classroom.washrooms' doesn't exist
+Raw SQL : truncate washrooms
+
+Time : 18:56:50
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'classroom.washrooms' doesn't exist
+Raw SQL : truncate washrooms
+
+Time : 18:53:28
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'classroom.washrooms' doesn't exist
+Raw SQL : truncate washrooms
+
+Time : 18:50:48
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'classroom.washrooms' doesn't exist
+Raw SQL : truncate washrooms
+
+Time : 18:50:35
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'classroom.washrooms' doesn't exist
+Raw SQL : truncate washrooms
+
+Time : 18:49:52
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'classroom.washrooms' doesn't exist
+Raw SQL : truncate washrooms
+
+Time : 18:49:27
+SQLSTATE[HY000] [1045] Access denied for user 'me'@'localhost' (using password: YES)
+
+Time : 18:49:22
+SQLSTATE[HY000] [1045] Access denied for user 'me'@'localhost' (using password: YES)

@@ -15,7 +15,7 @@ Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`endda
 
 Time : 18:31:55
 SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'startdate' at row 1
-Raw SQL : INSERT INTO `washrooms` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
+Raw SQL : INSERT INTO `` (`name`,`roomnumber`,`wave`,`startdate`,`enddate`,`status`) 
 			VALUES (:name,:roomnumber,:wave,:startdate,:enddate,:status)
 
 Time : 18:30:43

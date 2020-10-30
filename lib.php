@@ -33,7 +33,7 @@ function getGoogleSheetData() {
      *
      * @see https://developers.google.com/sheets/api/guides/concepts#a1_notation
      */
-    $spreadsheet_range = 'A2:F';
+    $spreadsheet_range = 'A2:G'; //Added
     putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $service_account_file);
     $client = new Google_Client();
     $client->useApplicationDefaultCredentials();
@@ -44,7 +44,7 @@ function getGoogleSheetData() {
 // print_object($data);
     $sum = 0;
 
-    $DB->query('truncate washrooms');
+    $DB->query('truncate sheets');
 
     foreach ($data as $key => $value) {
 
@@ -52,26 +52,29 @@ function getGoogleSheetData() {
             'name' => $value[0],
             'roomnumber' => $value[1],
             'wave' => $value[2],
+            'year_phase' => $value[3] //added
         ];
         // print_object($key);
-
-        if (isset($value[3]) && trim($value[3]) != '') {
-            $params['startdate'] = strtotime($value[3]);
+        
+        //Added +1 because of phase
+        if (isset($value[3+1]) && trim($value[3+1]) != '') {
+            $params['startdate'] = strtotime($value[3+1]);
         } else {
             $params['startdate'] = 0;
         }
-        if (isset($value[4]) && trim($value[4]) != '') {
-            $params['enddate'] = strtotime($value[4]);
+        if (isset($value[4+1]) && trim($value[4+1]) != '') {
+            $params['enddate'] = strtotime($value[4+1]);
         } else {
             $params['enddate'] = 0;
         }
-        if (isset($value[5]) && trim($value[5]) != '') {
-            $params['status'] = $value[5];
+        if (isset($value[5+1]) && trim($value[5+1]) != '') {
+            $params['status'] = $value[5+1];
         } else {
             $params['status'] = 'Identified';
         }
+        
 //    print_object($params);
-        $DB->insert('washrooms', $params);
+        $DB->insert('sheets', $params);
     }
 }
 
@@ -82,10 +85,11 @@ function getGoogleSheetData() {
  */
 function getWaves() {
     global $DB;
-    $countRows = "SELECT count(*) AS count FROM washrooms WHERE status !=  'Cancelled' ";
+    $countRows = "SELECT count(*) AS count FROM sheets WHERE status !=  'Cancelled' ";
     $result = $DB->query($countRows);
 
-    $wavesSQL = "SELECT DISTINCT(wave) AS wave FROM washrooms";
+    $wavesSQL = "SELECT DISTINCT(wave) AS wave FROM sheets";
+    //$wavesSQL = "SELECT DISTINCT wave, year_phase AS wave FROM sheets"; // Added
     $waves = $DB->query($wavesSQL);
 
     $wavesArray = [];
@@ -126,7 +130,7 @@ function loadGraph($wave, $reference = 0) {
     $pending = 0;
 
 // Total number of rooms
-    $sql = "SELECT * FROM washrooms ";
+    $sql = "SELECT * FROM sheets ";
     if ($wave != 0) {
         $sql .= "WHERE wave =  $wave";
     }
@@ -190,13 +194,13 @@ function loadGraph($wave, $reference = 0) {
     }
 
     if ($wave == 0) {
-        $waveText = 'All waves';
-        $totalRoomsSql = "SELECT count(*) AS count FROM washrooms";
+        $waveText = 'All years';
+        $totalRoomsSql = "SELECT count(*) AS count FROM sheets";
         $totalQuery = $DB->query($totalRoomsSql);
         $totalRooms = $totalQuery[0]["count"];
     } else {
-        $waveText = 'Wave ' . $wave;
-        $totalRoomsSql = "SELECT count(*) AS count FROM washrooms WHERE wave = $wave ";
+        $waveText = 'Year ' . $wave;
+        $totalRoomsSql = "SELECT count(*) AS count FROM sheets WHERE wave = $wave ";
         $totalQuery = $DB->query($totalRoomsSql);
         $totalRooms = $totalQuery[0]["count"];
     }
